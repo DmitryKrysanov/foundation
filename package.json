@@ -13,6 +13,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.0",
+    "stylelint-selector-bem-pattern": "^2.1.0",
     "typescript": "^4.0.5",
     "web-vitals": "^0.2.4"
   },
@@ -20,7 +21,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint '*/**/*.{js,ts,tsx}'",
+    "lint:fix": "eslint '*/**/*.{js,ts,tsx}' --fix",
+    "stylelint": "stylelint '**/*.{scss,css}'",
+    "stylelint:fix": "stylelint '**/*.{scss,css}' --fix",
+    "prettier:format": "prettier --config .prettierrc 'src/**/*.{ts,tsx,scss,css}' --write",
+    "prettier:watch": "onchange 'src/**/*.{ts,tsx,scss,css}' -- prettier --write {{changed}}"
   },
   "eslintConfig": {
     "extends": [
@@ -34,10 +41,42 @@
       "not dead",
       "not op_mini all"
     ],
+    "husky": {
+      "hooks": {
+        "pre-commit": "lint-staged"
+      }
+    },
+    "lint-staged": {
+      "*.{js, ts, tsx, scss, css}": [
+        "lint",
+        "stylelint",
+        "prettier:format"
+      ]
+    },
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "2.1.2",
+    "@typescript-eslint/eslint-plugin": "^4.6.0",
+    "@typescript-eslint/parser": "^4.6.0",
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-airbnb-typescript": "^12.0.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "husky": "^4.3.0",
+    "stylelint": "^13.7.2",
+    "stylelint-config-sass-guidelines": "^7.1.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-prettier": "^1.1.2"
   }
 }
